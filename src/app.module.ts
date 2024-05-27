@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CustomerModule } from './customer/customer.module';
+import { HistoricalChangesModule } from './historical-changes/historical-changes.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true, // models will be loaded automatically
       synchronize: true, // your entities will be synced with the database(recommended: disable in prod)
     }),
+    CustomerModule,
+    HistoricalChangesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
