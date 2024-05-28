@@ -8,12 +8,12 @@ export class GenericUser extends BaseEntity {
   @Column()
   lastName: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
   password: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, unique: true })
   phoneNumber: string;
 }

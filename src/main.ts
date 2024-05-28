@@ -14,7 +14,7 @@ async function bootstrap() {
   );
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalInterceptors(new LoggingInterceptor());
-
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

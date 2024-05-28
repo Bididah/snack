@@ -13,7 +13,7 @@ export class CustomerController extends GenericController<Customer> {
 
   @Post()
   create(@Body() createCustomerDto: CreateCustomerDto) {
-    return super.create(createCustomerDto);
+    return this.customerService.create(createCustomerDto);
   }
 
   @Patch(':id')
@@ -21,6 +21,8 @@ export class CustomerController extends GenericController<Customer> {
     @Param('id') id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
-    return super.update(id, updateCustomerDto);
+    return this.customerService.update(updateCustomerDto, {
+      where: { id: +id },
+    });
   }
 }

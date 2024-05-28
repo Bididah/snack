@@ -7,6 +7,7 @@ import { CustomerModule } from './customer/customer.module';
 import { HistoricalChangesModule } from './historical-changes/historical-changes.module';
 import { UserModule } from './user/user.module';
 import LogsMiddleware from 'util/middlewares/LoggerMiddleware';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import LogsMiddleware from 'util/middlewares/LoggerMiddleware';
     CustomerModule,
     HistoricalChangesModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

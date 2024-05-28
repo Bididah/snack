@@ -13,7 +13,7 @@ export class UserController extends GenericController<User> {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    return super.create(createUserDto);
+    return this.userService.create(createUserDto);
   }
 
   @Patch(':id')

@@ -106,10 +106,51 @@ export class CrudService<T extends BaseEntity> {
     return this.repository.metadata.targetName;
   }
 
-  async uniqueFields(object: DeepPartial<T>): Promise<void> {
+  // async uniqueFields(object: DeepPartial<T>): Promise<void> {
+  //   const exEntity = await this.repository.findOne({
+  //     where: object as any,
+  //   });
+  //   if (exEntity) throw new BadRequestException('field already exists');
+  // }
+
+  getUnique(createDto: DeepPartial<T>): any[] {
+    const uniques = this.repository.metadata.columns.map((item) =>
+      item.entityMetadata.uniques.filter(
+        (item) => item.columnNamesWithOrderingMap !== undefined,
+      ),
+    );
+    return uniques[0]
+      .map((item) => item.columnNamesWithOrderingMap)
+      .map((item) => {
+        for (const key in item) {
+          if (Object.prototype.hasOwnProperty.call(item, key)) {
+            item[key] = createDto[key];
+            return item;
+          }
+        }
+      });
+  }
+
+  async uniqueFields(uniqueFields: DeepPartial<T>[]): Promise<void> {
     const exEntity = await this.repository.findOne({
-      where: object as any,
+      where: uniqueFields as any,
     });
-    if (exEntity) throw new BadRequestException('field already exists');
+    if (exEntity) {
+      const fileds = [];
+      for (const object of uniqueFields) {
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            if (object[key] === exEntity[key]) {
+              fileds.push(key);
+            }
+          }
+        }
+      }
+      throw new BadRequestException(
+        fileds.map(
+          (filed) => `the ${filed}: ${exEntity[filed]} allready exits`,
+        ),
+      );
+    }
   }
 }
