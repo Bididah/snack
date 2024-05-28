@@ -22,7 +22,7 @@ class LogsMiddleware implements NestMiddleware {
 
       return this.logger.log(message);
     });
-    next()
+    next();
   }
 }
 

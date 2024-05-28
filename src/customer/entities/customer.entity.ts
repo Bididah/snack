@@ -1,26 +1,11 @@
 import { Column, Entity } from 'typeorm';
-import { BaseEntity } from 'util/base-entity';
+import { GenericUser } from 'util/generic-user';
 
 @Entity()
-export class Customer extends BaseEntity {
-  @Column()
-  firstName: string;
-
-  @Column()
-  lastName: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
+export class Customer extends GenericUser {
   @Column()
   adresse: string;
 
   @Column()
   restaurantName: string;
-
-  @Column()
-  phoneNumber: string;
 }
