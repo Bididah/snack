@@ -14,6 +14,7 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
+    debugger;
     const user = await this.userServicee.findOne({
       where: [{ email: username }, { phoneNumber: username }],
     });
